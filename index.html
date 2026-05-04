@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Электронное пособие по физической культуре</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --heading: #0f172a;
+      --muted: #64748b;
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --accent: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --line: #e2e8f0;
+      --soft-blue: #eaf2ff;
+      --soft-green: #eafaf3;
+      --soft-orange: #fff7e8;
+      --surface-soft: #fbfdff;
+      --table-head: #0f172a;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+      --radius: 22px;
+    }
+
+    body.dark {
+      --bg: #0f172a;
+      --card: #162033;
+      --text: #e5e7eb;
+      --heading: #f8fafc;
+      --muted: #a8b3c7;
+      --primary: #60a5fa;
+      --primary-dark: #93c5fd;
+      --accent: #34d399;
+      --warning: #fbbf24;
+      --danger: #f87171;
+      --line: #2b3953;
+      --soft-blue: rgba(96, 165, 250, 0.14);
+      --soft-green: rgba(52, 211, 153, 0.14);
+      --soft-orange: rgba(251, 191, 36, 0.14);
+      --surface-soft: #111827;
+      --table-head: #020617;
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #eef5ff 0%, #f7fbff 42%, #f5fff9 100%);
+      color: var(--text);
+      transition: background 0.25s ease, color 0.25s ease;
+      line-height: 1.65;
+    }
+
+    body.dark {
+      background: radial-gradient(circle at 12% 0%, rgba(96, 165, 250, 0.18), transparent 32%),
+                  radial-gradient(circle at 88% 12%, rgba(52, 211, 153, 0.13), transparent 30%),
+                  #0f172a;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.82);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    body.dark .topbar {
+      background: rgba(15, 23, 42, 0.84);
+      border-bottom-color: rgba(51, 65, 85, 0.9);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--heading);
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      box-shadow: 0 10px 22px rgba(37, 99, 235, 0.22);
+      font-size: 22px;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .menu a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+
+    .menu a:hover {
+      background: var(--soft-blue);
+      color: var(--primary-dark);
+    }
+
+    .theme-toggle {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--text);
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: inherit;
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-1px);
+      border-color: var(--primary);
+    }
+
+    .hero {
+      padding: 64px 0 44px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.8fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-card {
+      padding: 44px;
+      background:
+        radial-gradient(circle at 8% 15%, rgba(37, 99, 235, 0.14), transparent 35%),
+        radial-gradient(circle at 90% 15%, rgba(16, 185, 129, 0.13), transparent 30%),
+        var(--card);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      right: -72px;
+      bottom: -82px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(16, 185, 129, 0.12));
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--soft-green);
+      color: #047857;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      max-width: 830px;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.05;
+      letter-spacing: -0.055em;
+      color: var(--heading);
+    }
+
+    .hero-text {
+      max-width: 820px;
+      margin: 0 0 26px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 13px 18px;
+      border-radius: 16px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      transition: 0.2s;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 15px;
+    }
+
+    .button.primary {
+      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 12px 25px rgba(37, 99, 235, 0.25);
+    }
+
+    .button.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 28px rgba(37, 99, 235, 0.32);
+    }
+
+    .button.secondary {
+      color: var(--text);
+      background: var(--card);
+      border-color: var(--line);
+    }
+
+    .button.secondary:hover {
+      background: var(--surface-soft);
+      transform: translateY(-2px);
+    }
+
+    .passport {
+      padding: 28px;
+      border-radius: 32px;
+      background: var(--table-head);
+      color: white;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .passport::before {
+      content: "";
+      position: absolute;
+      inset: -80px -80px auto auto;
+      width: 220px;
+      height: 220px;
+      background: rgba(16, 185, 129, 0.23);
+      border-radius: 50%;
+    }
+
+    .passport h2 {
+      margin: 0 0 18px;
+      font-size: 24px;
+      letter-spacing: -0.03em;
+      position: relative;
+    }
+
+    .passport-row {
+      position: relative;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .passport-row:last-child {
+      border-bottom: 0;
+    }
+
+    .passport-label {
+      display: block;
+      color: #a5b4fc;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 3px;
+    }
+
+    .passport-value {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .section {
+      padding: 34px 0;
+    }
+
+    .section-head {
+      margin-bottom: 22px;
+    }
+
+    .section-head h2 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 3vw, 40px);
+      letter-spacing: -0.04em;
+      color: var(--heading);
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 850px;
+      font-size: 17px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 12px 34px rgba(15, 23, 42, 0.05);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 21px;
+      color: var(--heading);
+      letter-spacing: -0.025em;
+    }
+
+    .card p {
+      margin: 0 0 12px;
+      color: var(--muted);
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: var(--soft-blue);
+      color: var(--primary-dark);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .list {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .list li {
+      margin: 6px 0;
+    }
+
+    .quality-card {
+      border-left: 5px solid var(--primary);
+    }
+
+    .quality-card:nth-child(2) {
+      border-left-color: var(--accent);
+    }
+
+    .quality-card:nth-child(3) {
+      border-left-color: var(--warning);
+    }
+
+    .quality-card:nth-child(4) {
+      border-left-color: #8b5cf6;
+    }
+
+    .quality-card:nth-child(5) {
+      border-left-color: #06b6d4;
+    }
+
+    .info-strip {
+      margin: 20px 0;
+      padding: 22px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, #eff6ff, #ecfdf5);
+      border: 1px solid rgba(37, 99, 235, 0.1);
+      color: var(--text);
+    }
+
+    .practice-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 18px;
+      background: var(--card);
+      box-shadow: 0 12px 34px rgba(15, 23, 42, 0.05);
+    }
+
+    .practice-table th,
+    .practice-table td {
+      text-align: left;
+      padding: 15px 16px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    .practice-table th {
+      background: var(--table-head);
+      color: white;
+      font-size: 14px;
+    }
+
+    .practice-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .practice-table td:first-child {
+      font-weight: 800;
+      color: var(--heading);
+    }
+
+    .week {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .day {
+      padding: 16px;
+      border-radius: 18px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      min-height: 155px;
+    }
+
+    .day strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--primary-dark);
+    }
+
+    .day span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .test-area {
+      display: grid;
+      gap: 16px;
+    }
+
+    .question {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.045);
+    }
+
+    .question h3 {
+      margin: 0 0 14px;
+      font-size: 18px;
+      color: var(--heading);
+    }
+
+    .options {
+      display: grid;
+      gap: 9px;
+    }
+
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 13px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: 0.2s;
+      background: var(--surface-soft);
+    }
+
+    .option:hover {
+      border-color: #bfdbfe;
+      background: var(--soft-blue);
+    }
+
+    .option input {
+      margin-top: 5px;
+      accent-color: var(--primary);
+    }
+
+    .test-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .result {
+      display: none;
+      padding: 22px;
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .result strong {
+      font-size: 22px;
+      color: var(--heading);
+    }
+
+    .result.good {
+      border-color: rgba(16, 185, 129, 0.45);
+      background: #f0fdf4;
+    }
+
+    .result.middle {
+      border-color: rgba(245, 158, 11, 0.5);
+      background: #fffbeb;
+    }
+
+    .result.low {
+      border-color: rgba(239, 68, 68, 0.4);
+      background: #fef2f2;
+    }
+
+    .correct {
+      border-color: rgba(16, 185, 129, 0.55) !important;
+      background: #ecfdf5 !important;
+    }
+
+    .wrong {
+      border-color: rgba(239, 68, 68, 0.45) !important;
+      background: #fef2f2 !important;
+    }
+
+    .footer {
+      margin-top: 34px;
+      padding: 30px 0 42px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .footer strong {
+      color: var(--heading);
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .grid.two,
+      .grid.three {
+        grid-template-columns: 1fr;
+      }
+
+      .week {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .menu {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding-top: 34px;
+      }
+
+      .hero-card,
+      .passport,
+      .card,
+      .question {
+        padding: 20px;
+        border-radius: 22px;
+      }
+
+      .week {
+        grid-template-columns: 1fr;
+      }
+
+      .practice-table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+
+    @media print {
+      .topbar,
+      .hero-actions,
+      .test-controls {
+        display: none;
+      }
+
+      body {
+        background: var(--card);
+      }
+
+      .card,
+      .question,
+      .passport,
+      .hero-card {
+        box-shadow: none;
+      }
+
+      .section {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="На главную">
+        <span class="brand-icon">🏃</span>
+        <span>Электронное пособие</span>
+      </a>
+      <nav class="menu" aria-label="Основная навигация">
+        <a href="#theory">Теория</a>
+        <a href="#practice">Практика</a>
+        <a href="#tests">Тесты</a>
+        <a href="#result">Результат</a>
+        <button class="theme-toggle" type="button" onclick="toggleTheme()" id="themeButton">🌙 Тёмная тема</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-card">
+          <div class="eyebrow">Современное учебное пособие</div>
+          <h1>Физическая культура как основа здоровья и активного образа жизни</h1>
+          <p class="hero-text">
+            Данное электронное пособие предназначено для изучения основных понятий физической культуры,
+            закрепления знаний через практические задания и прохождения интерактивного тестирования.
+            Материал помогает понять значение двигательной активности, правил безопасности и самоконтроля
+            при физических нагрузках.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#theory">Начать изучение</a>
+            <a class="button secondary" href="#tests">Перейти к тесту</a>
+          </div>
+        </div>
+
+        <aside class="passport" aria-label="Титульный блок">
+          <h2>Титульный блок</h2>
+          <div class="passport-row">
+            <span class="passport-label">Тема</span>
+            <span class="passport-value">Электронное пособие по физической культуре</span>
+          </div>
+          <div class="passport-row">
+            <span class="passport-label">ФИО</span>
+            <span class="passport-value">Плотников Николай, Печенюк Алина</span>
+          </div>
+          <div class="passport-row">
+            <span class="passport-label">Группа</span>
+            <span class="passport-value">515</span>
+          </div>
+          <div class="passport-row">
+            <span class="passport-label">Преподаватель</span>
+            <span class="passport-value">Антонюк Петр Евгеньевич</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="theory" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Теоретическая часть</h2>
+          <p>
+            В теоретическом разделе рассматриваются основные понятия физической культуры, ее задачи,
+            физические качества человека, принципы здорового образа жизни, техника безопасности и самоконтроль.
+          </p>
+        </div>
+
+        <div class="grid two">
+          <article class="card">
+            <span class="tag">01 · Понятие</span>
+            <h3>Что такое физическая культура</h3>
+            <p>
+              Физическая культура — это часть общей культуры человека, направленная на укрепление здоровья,
+              развитие физических способностей, повышение работоспособности и формирование устойчивой привычки
+              к активному образу жизни.
+            </p>
+            <p>
+              Она включает выполнение физических упражнений, занятия спортом, активный отдых, соблюдение режима дня,
+              развитие полезных привычек и осознанное отношение к собственному здоровью.
+            </p>
+          </article>
+
+          <article class="card">
+            <span class="tag">02 · Значение</span>
+            <h3>Роль физической культуры</h3>
+            <p>
+              Регулярная физическая активность положительно влияет не только на тело, но и на психическое состояние.
+              Занятия физической культурой помогают снизить утомляемость, улучшить настроение, укрепить сердечно-сосудистую
+              систему и повысить выносливость.
+            </p>
+            <p>
+              Кроме того, физическая культура воспитывает дисциплину, ответственность, настойчивость и умение добиваться результата.
+            </p>
+          </article>
+        </div>
+
+        <div class="info-strip">
+          <strong>Главная идея:</strong> физическая культура нужна не только для спортивных достижений.
+          Ее основная задача — помочь человеку сохранить здоровье, развить физические качества и сформировать
+          привычку к безопасной двигательной активности.
+        </div>
+
+        <div class="grid two">
+          <article class="card">
+            <span class="tag">Историческая справка</span>
+            <h3>Развитие физической культуры</h3>
+            <p>
+              Физическая культура появилась как естественная потребность человека в движении, силе, ловкости и выносливости.
+              В древности физические упражнения были связаны с трудом, охотой, защитой и подготовкой к различным испытаниям.
+              Позже они стали частью воспитания, образования и спортивных соревнований.
+            </p>
+            <p>
+              В современном обществе физическая культура рассматривается как важная часть образования. Она помогает человеку
+              не только улучшить физическую форму, но и научиться организовывать собственный режим, контролировать нагрузку
+              и бережно относиться к здоровью.
+            </p>
+          </article>
+
+          <article class="card">
+            <span class="tag">Личностное развитие</span>
+            <h3>Влияние занятий на характер</h3>
+            <p>
+              Занятия физической культурой развивают волевые качества: настойчивость, дисциплину, терпение и ответственность.
+              Регулярные тренировки требуют соблюдения режима, постепенного повышения нагрузки и умения доводить начатое до конца.
+            </p>
+            <p>
+              В командных упражнениях и спортивных играх формируются навыки общения, взаимопомощи и уважения к другим участникам.
+              Поэтому физическая культура имеет не только оздоровительное, но и воспитательное значение.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid two" style="margin-top: 18px;">
+          <article class="card">
+            <span class="tag">Организм</span>
+            <h3>Влияние физических упражнений на здоровье</h3>
+            <p>
+              Двигательная активность улучшает работу сердца, легких, мышц и суставов. При регулярных занятиях организм лучше
+              переносит нагрузки, быстрее восстанавливается после утомления и становится более устойчивым к неблагоприятным факторам.
+            </p>
+            <ul class="list">
+              <li>укрепляется сердечно-сосудистая система;</li>
+              <li>улучшается осанка и работа опорно-двигательного аппарата;</li>
+              <li>повышается общий тонус организма;</li>
+              <li>снижается риск гиподинамии и переутомления;</li>
+              <li>улучшается настроение и способность к концентрации.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <span class="tag">Учебный процесс</span>
+            <h3>Физическая культура в образовательной среде</h3>
+            <p>
+              На занятиях физической культурой учащиеся получают знания о правильной технике упражнений, правилах безопасности,
+              самоконтроле и здоровом образе жизни. Это делает предмет практико-ориентированным: полученные знания можно применять
+              в повседневной жизни.
+            </p>
+            <p>
+              Важно понимать, что цель занятий — не только выполнение нормативов. Главное значение имеет постепенное развитие,
+              осознанность, регулярность и умение выбирать безопасную нагрузку.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid four"></div>
+
+        <div class="grid two">
+          <article class="card">
+            <span class="tag">03 · Задачи</span>
+            <h3>Основные задачи физической культуры</h3>
+            <ul class="list">
+              <li><strong>Оздоровительная:</strong> укрепление здоровья, повышение иммунитета, профилактика заболеваний.</li>
+              <li><strong>Образовательная:</strong> получение знаний о здоровье и правильной технике упражнений.</li>
+              <li><strong>Развивающая:</strong> развитие силы, выносливости, гибкости, быстроты и координации.</li>
+              <li><strong>Воспитательная:</strong> формирование дисциплины, ответственности, силы воли и умения работать в коллективе.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <span class="tag">04 · ЗОЖ</span>
+            <h3>Здоровый образ жизни</h3>
+            <p>
+              Здоровый образ жизни — это система привычек и поведения, направленная на сохранение и укрепление здоровья.
+              Он связан не только со спортом, но и с повседневной организацией жизни.
+            </p>
+            <ul class="list">
+              <li>сбалансированное питание;</li>
+              <li>регулярная двигательная активность;</li>
+              <li>правильный режим дня;</li>
+              <li>сон 7–9 часов;</li>
+              <li>отказ от вредных привычек.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 34px;">
+          <h2>Физические качества человека</h2>
+          <p>
+            Физические качества определяют уровень физической подготовленности человека и развиваются с помощью
+            правильно подобранных упражнений.
+          </p>
+        </div>
+
+        <div class="grid three">
+          <article class="card quality-card">
+            <h3>Сила</h3>
+            <p>Способность преодолевать внешнее сопротивление за счет мышечного напряжения.</p>
+            <p><strong>Примеры:</strong> отжимания, подтягивания, приседания, работа с весом.</p>
+          </article>
+
+          <article class="card quality-card">
+            <h3>Выносливость</h3>
+            <p>Способность долго выполнять физическую работу без резкого снижения эффективности.</p>
+            <p><strong>Примеры:</strong> бег на длинные дистанции, плавание, велосипед.</p>
+          </article>
+
+          <article class="card quality-card">
+            <h3>Быстрота</h3>
+            <p>Способность выполнять движения за минимально короткое время.</p>
+            <p><strong>Примеры:</strong> бег на 30 метров, старт по сигналу, спринт.</p>
+          </article>
+
+          <article class="card quality-card">
+            <h3>Гибкость</h3>
+            <p>Способность выполнять движения с большой амплитудой в суставах.</p>
+            <p><strong>Примеры:</strong> наклоны, растяжка, упражнения на подвижность.</p>
+          </article>
+
+          <article class="card quality-card">
+            <h3>Координация</h3>
+            <p>Способность точно, согласованно и устойчиво выполнять движения.</p>
+            <p><strong>Примеры:</strong> упражнение «ласточка», баланс, ходьба по линии.</p>
+          </article>
+
+          <article class="card quality-card">
+            <h3>Ловкость</h3>
+            <p>Способность быстро перестраивать движения в изменяющихся условиях.</p>
+            <p><strong>Примеры:</strong> подвижные игры, эстафеты, упражнения с мячом.</p>
+          </article>
+        </div>
+
+        <div class="grid two" style="margin-top: 18px;">
+          <article class="card">
+            <span class="tag">05 · Безопасность</span>
+            <h3>Техника безопасности на занятиях</h3>
+            <p>
+              Соблюдение техники безопасности — обязательное условие занятий физической культурой.
+              Нарушение правил может привести к травмам, переутомлению и ухудшению самочувствия.
+            </p>
+            <ul class="list">
+              <li>перед занятием необходимо выполнить разминку;</li>
+              <li>упражнения нужно выполнять правильно и аккуратно;</li>
+              <li>нагрузку следует увеличивать постепенно;</li>
+              <li>нужно использовать удобную спортивную форму и обувь;</li>
+              <li>нельзя заниматься при плохом самочувствии;</li>
+              <li>важно соблюдать указания преподавателя.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <span class="tag">06 · Самоконтроль</span>
+            <h3>Самоконтроль при нагрузках</h3>
+            <p>
+              Самоконтроль — это наблюдение за состоянием организма во время и после выполнения физических упражнений.
+              Он помогает определить, подходит ли выбранная нагрузка конкретному человеку.
+            </p>
+            <ul class="list">
+              <li><strong>Пульс:</strong> показывает уровень нагрузки на организм. При умеренной активности обычно составляет 120–160 ударов в минуту.</li>
+              <li><strong>Дыхание:</strong> при нагрузке учащается, но не должно становиться чрезмерно затрудненным.</li>
+              <li><strong>Самочувствие:</strong> важно учитывать усталость, головокружение, боль и общее состояние.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="practice" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Практическая часть</h2>
+          <p>
+            Практические задания помогают закрепить теорию и оценить собственный уровень физической подготовки.
+            Упражнения необходимо выполнять с учетом самочувствия, уровня подготовки и правил безопасности.
+          </p>
+        </div>
+
+        <div class="grid three">
+          <article class="card">
+            <span class="tag">Общее задание</span>
+            <h3>Режим дня</h3>
+            <p>Составьте режим дня с учетом учебы, отдыха, сна, питания и физической активности.</p>
+          </article>
+
+          <article class="card">
+            <span class="tag">Общее задание</span>
+            <h3>Утренняя зарядка</h3>
+            <p>Выполняйте зарядку 5–10 минут в течение недели и фиксируйте самочувствие.</p>
+          </article>
+
+          <article class="card">
+            <span class="tag">Общее задание</span>
+            <h3>Оценка подготовки</h3>
+            <p>Оцените свои показатели: количество отжиманий, приседаний, гибкость и переносимость нагрузки.</p>
+          </article>
+        </div>
+
+        <div style="margin-top: 22px;">
+          <table class="practice-table">
+            <thead>
+              <tr>
+                <th>Физическое качество</th>
+                <th>Упражнения</th>
+                <th>Рекомендуемый объем</th>
+                <th>Цель выполнения</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Сила</td>
+                <td>Отжимания, приседания</td>
+                <td>Отжимания 10–20 раз, приседания 15–25 раз</td>
+                <td>Укрепление мышц рук, груди, ног и корпуса</td>
+              </tr>
+              <tr>
+                <td>Выносливость</td>
+                <td>Бег, прыжки на скакалке</td>
+                <td>Бег 500–1000 м, скакалка 1–2 минуты</td>
+                <td>Развитие сердечно-сосудистой системы и общей работоспособности</td>
+              </tr>
+              <tr>
+                <td>Гибкость</td>
+                <td>Наклоны вперед, растяжка ног</td>
+                <td>2–3 подхода по 20–30 секунд</td>
+                <td>Улучшение подвижности суставов и профилактика травм</td>
+              </tr>
+              <tr>
+                <td>Быстрота</td>
+                <td>Бег на 30 м, старт по хлопку</td>
+                <td>3–5 повторений с отдыхом</td>
+                <td>Развитие реакции и скорости движений</td>
+              </tr>
+              <tr>
+                <td>Координация</td>
+                <td>«Ласточка», ходьба по линии</td>
+                <td>2–4 подхода по 20–40 секунд</td>
+                <td>Развитие равновесия, точности и согласованности движений</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid two" style="margin-top: 22px;">
+          <article class="card">
+            <span class="tag">Самоконтроль</span>
+            <h3>Порядок выполнения</h3>
+            <ul class="list">
+              <li>Измерьте пульс до начала выполнения упражнений.</li>
+              <li>Выполните выбранный комплекс с умеренной нагрузкой.</li>
+              <li>Измерьте пульс сразу после нагрузки.</li>
+              <li>Оцените дыхание и общее самочувствие.</li>
+              <li>Сделайте вывод о переносимости нагрузки.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <span class="tag">Вывод по практике</span>
+            <h3>Что нужно зафиксировать</h3>
+            <p>
+              После выполнения практических заданий необходимо записать, какие упражнения были выполнены,
+              насколько сложной показалась нагрузка, как изменился пульс и было ли самочувствие нормальным.
+            </p>
+            <p>
+              Если после нагрузки появляется сильная одышка, головокружение или боль, интенсивность упражнений
+              нужно снизить и сообщить об этом преподавателю.
+            </p>
+          </article>
+        </div>
+
+        <article class="card" style="margin-top: 22px;">
+          <span class="tag">Дополнительное задание</span>
+          <h3>Пример индивидуальной программы тренировок на 7 дней</h3>
+          <div class="week">
+            <div class="day"><strong>День 1</strong><span>Зарядка, приседания, отжимания, растяжка.</span></div>
+            <div class="day"><strong>День 2</strong><span>Легкий бег 500–800 м, упражнения на дыхание.</span></div>
+            <div class="day"><strong>День 3</strong><span>Растяжка, наклоны, упражнение «ласточка».</span></div>
+            <div class="day"><strong>День 4</strong><span>Отдых или спокойная прогулка 30–40 минут.</span></div>
+            <div class="day"><strong>День 5</strong><span>Прыжки на скакалке, бег на 30 м, координация.</span></div>
+            <div class="day"><strong>День 6</strong><span>Комплекс ОФП: приседания, планка, отжимания.</span></div>
+            <div class="day"><strong>День 7</strong><span>Восстановление, прогулка, анализ самочувствия.</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="tests" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Интерактивное тестирование</h2>
+          <p>
+            Выберите один правильный ответ в каждом вопросе. После прохождения нажмите кнопку
+            «Проверить результат», чтобы увидеть количество баллов и оценку.
+          </p>
+        </div>
+
+        <form id="quiz" class="test-area">
+          <div class="question" data-answer="b">
+            <h3>1. Физическая культура направлена на:</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q1" value="a"> а) только отдых</label>
+              <label class="option"><input type="radio" name="q1" value="b"> б) укрепление здоровья</label>
+              <label class="option"><input type="radio" name="q1" value="c"> в) только игру</label>
+              <label class="option"><input type="radio" name="q1" value="d"> г) отказ от активности</label>
+            </div>
+          </div>
+
+          <div class="question" data-answer="b">
+            <h3>2. Основная цель физической культуры:</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q2" value="a"> а) вызвать усталость</label>
+              <label class="option"><input type="radio" name="q2" value="b"> б) развивать организм и укреплять здоровье</label>
+              <label class="option"><input type="radio" name="q2" value="c"> в) заменить сон</label>
+              <label class="option"><input type="radio" name="q2" value="d"> г) исключить питание</label>
+            </div>
+          </div>
+
+          <div class="question" data-answer="b">
+            <h3>3. Что развивает бег на длинные дистанции?</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q3" value="a"> а) только силу</label>
+              <label class="option"><input type="radio" name="q3" value="b"> б) выносливость</label>
+              <label class="option"><input type="radio" name="q3" value="c"> в) только гибкость</label>
+              <label class="option"><input type="radio" name="q3" value="d"> г) только равновесие</label>
+            </div>
+          </div>
+
+          <div class="question" data-answer="a">
+            <h3>4. Какое физическое качество связано с равновесием?</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q4" value="a"> а) координация</label>
+              <label class="option"><input type="radio" name="q4" value="b"> б) сила</label>
+              <label class="option"><input type="radio" name="q4" value="c"> в) скорость</label>
+              <label class="option"><input type="radio" name="q4" value="d"> г) выносливость</label>
+            </div>
+          </div>
+
+          <div class="question" data-answer="c">
+            <h3>5. Сколько часов обычно должен длиться полноценный сон?</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q5" value="a"> а) 3–4 часа</label>
+              <label class="option"><input type="radio" name="q5" value="b"> б) 5–6 часов</label>
+              <label class="option"><input type="radio" name="q5" value="c"> в) 7–9 часов</label>
+              <label class="option"><input type="radio" name="q5" value="d"> г) 12–14 часов</label>
+            </div>
+          </div>
+
+          <div class="question" data-answer="b">
+            <h3>6. Что относится к здоровому образу жизни?</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q6" value="a"> а) курение</label>
+              <label class="option"><input type="radio" name="q6" value="b"> б) режим дня</label>
+              <label class="option"><input type="radio" name="q6" value="c"> в) полное отсутствие активности</label>
+              <label class="option"><input type="radio" name="q6" value="d"> г) постоянное переутомление</label>
+            </div>
+          </div>
+
+          <div class="question" data-answer="b">
+            <h3>7. Разминка перед занятием нужна для:</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q7" value="a"> а) усиления усталости</label>
+              <label class="option"><input type="radio" name="q7" value="b"> б) подготовки организма к нагрузке</label>
+              <label class="option"><input type="radio" name="q7" value="c"> в) замены основной части занятия</label>
+              <label class="option"><input type="radio" name="q7" value="d"> г) отказа от упражнений</label>
+            </div>
+          </div>
+
+          <div class="question" data-answer="b">
+            <h3>8. Что запрещено на занятиях физической культурой?</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q8" value="a"> а) соблюдать технику выполнения</label>
+              <label class="option"><input type="radio" name="q8" value="b"> б) игнорировать правила безопасности</label>
+              <label class="option"><input type="radio" name="q8" value="c"> в) делать разминку</label>
+              <label class="option"><input type="radio" name="q8" value="d"> г) использовать спортивную обувь</label>
+            </div>
+          </div>
+
+          <div class="question" data-answer="a">
+            <h3>9. Самоконтроль — это:</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q9" value="a"> а) наблюдение за состоянием организма</label>
+              <label class="option"><input type="radio" name="q9" value="b"> б) полный отказ от нагрузки</label>
+              <label class="option"><input type="radio" name="q9" value="c"> в) только питание</label>
+              <label class="option"><input type="radio" name="q9" value="d"> г) только сон</label>
+            </div>
+          </div>
+
+          <div class="question" data-answer="a">
+            <h3>10. Пульс измеряют для:</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q10" value="a"> а) оценки нагрузки</label>
+              <label class="option"><input type="radio" name="q10" value="b"> б) развлечения</label>
+              <label class="option"><input type="radio" name="q10" value="c"> в) игры</label>
+              <label class="option"><input type="radio" name="q10" value="d"> г) украшения занятия</label>
+            </div>
+          </div>
+
+          <div class="question" data-answer="b">
+            <h3>11. Что включает физическая культура?</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q11" value="a"> а) только профессиональный спорт</label>
+              <label class="option"><input type="radio" name="q11" value="b"> б) упражнения, режим, активный отдых и заботу о здоровье</label>
+              <label class="option"><input type="radio" name="q11" value="c"> в) только отдых</label>
+              <label class="option"><input type="radio" name="q11" value="d"> г) только соревнования</label>
+            </div>
+          </div>
+
+          <div class="question" data-answer="b">
+            <h3>12. Главное правило занятий физической культурой:</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q12" value="a"> а) игнорировать самочувствие</label>
+              <label class="option"><input type="radio" name="q12" value="b"> б) соблюдать безопасность и постепенность нагрузки</label>
+              <label class="option"><input type="radio" name="q12" value="c"> в) не разминаться</label>
+              <label class="option"><input type="radio" name="q12" value="d"> г) постоянно перегружаться</label>
+            </div>
+          </div>
+
+          <div class="question" data-answer="d">
+            <h3>13. Какое действие помогает снизить риск травм?</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q13" value="a"> а) резкое увеличение нагрузки</label>
+              <label class="option"><input type="radio" name="q13" value="b"> б) выполнение упражнений при боли</label>
+              <label class="option"><input type="radio" name="q13" value="c"> в) отсутствие разминки</label>
+              <label class="option"><input type="radio" name="q13" value="d"> г) правильная техника и постепенность</label>
+            </div>
+          </div>
+
+          <div class="question" data-answer="c">
+            <h3>14. Гибкость лучше всего развивают:</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q14" value="a"> а) только силовые упражнения</label>
+              <label class="option"><input type="radio" name="q14" value="b"> б) только спринт</label>
+              <label class="option"><input type="radio" name="q14" value="c"> в) наклоны и растяжка</label>
+              <label class="option"><input type="radio" name="q14" value="d"> г) неподвижное сидение</label>
+            </div>
+          </div>
+
+          <div class="question" data-answer="a">
+            <h3>15. Если во время занятия стало плохо, необходимо:</h3>
+            <div class="options">
+              <label class="option"><input type="radio" name="q15" value="a"> а) прекратить упражнение и сообщить преподавателю</label>
+              <label class="option"><input type="radio" name="q15" value="b"> б) продолжать любой ценой</label>
+              <label class="option"><input type="radio" name="q15" value="c"> в) увеличить нагрузку</label>
+              <label class="option"><input type="radio" name="q15" value="d"> г) игнорировать состояние</label>
+            </div>
+          </div>
+
+          <div class="test-controls">
+            <button type="button" class="button primary" onclick="checkQuiz()">Проверить результат</button>
+            <button type="button" class="button secondary" onclick="resetQuiz()">Сбросить ответы</button>
+          </div>
+
+          <div id="result" class="result" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <strong>Электронное пособие по физической культуре</strong><br>
+      Теория · Практические задания · Интерактивное тестирование
+    </div>
+  </footer>
+
+  <script>
+    const savedTheme = localStorage.getItem('siteTheme');
+    const themeButton = document.getElementById('themeButton');
+
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark');
+      if (themeButton) themeButton.textContent = '☀️ Светлая тема';
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      const isDark = document.body.classList.contains('dark');
+      localStorage.setItem('siteTheme', isDark ? 'dark' : 'light');
+      if (themeButton) {
+        themeButton.textContent = isDark ? '☀️ Светлая тема' : '🌙 Тёмная тема';
+      }
+    }
+
+    function checkQuiz() {
+      const questions = document.querySelectorAll('.question');
+      const result = document.getElementById('result');
+      let score = 0;
+      let answered = 0;
+
+      questions.forEach((question) => {
+        const correctAnswer = question.dataset.answer;
+        const options = question.querySelectorAll('.option');
+        const selected = question.querySelector('input[type="radio"]:checked');
+
+        options.forEach((option) => {
+          option.classList.remove('correct', 'wrong');
+        });
+
+        if (selected) {
+          answered++;
+          const selectedOption = selected.closest('.option');
+
+          if (selected.value === correctAnswer) {
+            score++;
+            selectedOption.classList.add('correct');
+          } else {
+            selectedOption.classList.add('wrong');
+            const correctInput = question.querySelector('input[value="' + correctAnswer + '"]');
+            if (correctInput) {
+              correctInput.closest('.option').classList.add('correct');
+            }
+          }
+        }
+      });
+
+      const total = questions.length;
+      const percent = Math.round((score / total) * 100);
+      let mark = '';
+      let comment = '';
+      let className = '';
+
+      if (percent >= 85) {
+        mark = 'Отлично';
+        comment = 'Материал усвоен на высоком уровне. Вы хорошо понимаете основы физической культуры, безопасности и самоконтроля.';
+        className = 'good';
+      } else if (percent >= 60) {
+        mark = 'Хорошо';
+        comment = 'Основные знания сформированы, но некоторые темы стоит повторить: физические качества, ЗОЖ и правила безопасности.';
+        className = 'middle';
+      } else {
+        mark = 'Нужно повторить материал';
+        comment = 'Рекомендуется еще раз изучить теоретический раздел и затем пройти тест повторно.';
+        className = 'low';
+      }
+
+      result.className = 'result ' + className;
+      result.style.display = 'block';
+
+      if (answered < total) {
+        result.innerHTML =
+          '<strong>Отвечено не на все вопросы</strong><br>' +
+          'Вы ответили на ' + answered + ' из ' + total + ' вопросов. ' +
+          'Текущий результат: <b>' + score + ' из ' + total + '</b> (' + percent + '%).<br>' +
+          'Заполните пропущенные вопросы и проверьте результат еще раз.';
+      } else {
+        result.innerHTML =
+          '<strong>Результат: ' + score + ' из ' + total + ' — ' + mark + '</strong><br>' +
+          'Процент выполнения: <b>' + percent + '%</b>.<br>' +
+          comment;
+      }
+
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function resetQuiz() {
+      const form = document.getElementById('quiz');
+      const result = document.getElementById('result');
+      form.reset();
+
+      document.querySelectorAll('.option').forEach((option) => {
+        option.classList.remove('correct', 'wrong');
+      });
+
+      result.style.display = 'none';
+      result.innerHTML = '';
+      result.className = 'result';
+      document.getElementById('tests').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
