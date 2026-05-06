@@ -430,6 +430,12 @@
       color: var(--text);
     }
 
+    body.dark .info-strip {
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.14), rgba(52, 211, 153, 0.12));
+      border-color: rgba(96, 165, 250, 0.24);
+      color: var(--text);
+    }
+
     .practice-table {
       width: 100%;
       border-collapse: collapse;
@@ -571,6 +577,21 @@
       background: #fef2f2;
     }
 
+    body.dark .result.good {
+      border-color: rgba(52, 211, 153, 0.45);
+      background: rgba(52, 211, 153, 0.14);
+    }
+
+    body.dark .result.middle {
+      border-color: rgba(251, 191, 36, 0.46);
+      background: rgba(251, 191, 36, 0.14);
+    }
+
+    body.dark .result.low {
+      border-color: rgba(248, 113, 113, 0.44);
+      background: rgba(248, 113, 113, 0.13);
+    }
+
     .correct {
       border-color: rgba(16, 185, 129, 0.55) !important;
       background: #ecfdf5 !important;
@@ -579,6 +600,24 @@
     .wrong {
       border-color: rgba(239, 68, 68, 0.45) !important;
       background: #fef2f2 !important;
+    }
+
+    body.dark .correct {
+      border-color: rgba(52, 211, 153, 0.55) !important;
+      background: rgba(52, 211, 153, 0.14) !important;
+    }
+
+    body.dark .wrong {
+      border-color: rgba(248, 113, 113, 0.45) !important;
+      background: rgba(248, 113, 113, 0.13) !important;
+    }
+
+    body.dark .card,
+    body.dark .hero-card,
+    body.dark .question,
+    body.dark .day,
+    body.dark .practice-table {
+      border-color: var(--line);
     }
 
     .footer {
